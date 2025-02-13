@@ -309,5 +309,121 @@
             createEmojiRain();
         }
     </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  <style>
+ 
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Snake Node Styling */
+    .snake-node {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: rgba(0, 191, 255, 0.8);
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.8), 0 0 20px rgba(0, 144, 255, 0.5);
+      pointer-events: none; /* Ensures the nodes don't interfere with clicks */
+      transform: translate(-50%, -50%);
+      animation: glow 2s infinite alternate;
+    }
+
+    /* Glow Animation */
+    @keyframes glow {
+      0% {
+        opacity: 0.8;
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.8), 0 0 20px rgba(0, 144, 255, 0.5);
+      }
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 20px rgba(0, 191, 255, 0.8), 0 0 40px rgba(0, 144, 255, 0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Container for Snake Nodes -->
+  <div id="snake-container"></div>
+
+  <!-- JavaScript for Creating the Blue Snake Effect -->
+  <script>
+    // Number of nodes in the snake
+    const numNodes = 15;
+
+    // Create an array to store node positions
+    const nodes = [];
+
+    // Get the container for the snake
+    const container = document.getElementById('snake-container');
+
+    // Initialize the snake nodes
+    for (let i = 0; i < numNodes; i++) {
+      // Create a node
+      const node = document.createElement('div');
+      node.classList.add('snake-node');
+      container.appendChild(node);
+
+      // Store the node in the array
+      nodes.push({ x: 0, y: 0, element: node });
+    }
+
+    // Track mouse movement
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    });
+
+    // Animation loop
+    function animate() {
+      // Update the position of each node
+      nodes.forEach((node, index) => {
+        if (index === 0) {
+          // The first node follows the mouse
+          node.x += (mouseX - node.x) * 0.1;
+          node.y += (mouseY - node.y) * 0.1;
+        } else {
+          // Other nodes follow the previous node
+          const prevNode = nodes[index - 1];
+          node.x += (prevNode.x - node.x) * 0.2;
+          node.y += (prevNode.y - node.y) * 0.2;
+        }
+
+        // Update the position of the node element
+        node.element.style.left = `${node.x}px`;
+        node.element.style.top = `${node.y}px`;
+      });
+
+      // Request the next frame
+      requestAnimationFrame(animate);
+    }
+
+    // Start the animation
+    animate();
+  </script>
+
 </body>
 </html>
