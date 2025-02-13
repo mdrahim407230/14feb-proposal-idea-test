@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propose Day</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+        .page {
+            display: none; /* Hide all pages by default */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .page.active {
+            display: flex; /* Show only the active page */
+        }
+        /* Page 1: Proposal */
+        #page1 {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        #page1 h1 {
+            font-size: 6vw; /* Responsive font size */
+            animation: pulse 1.5s infinite;
+            text-align: center;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        #page1 button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 4vw; /* Responsive font size */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #page1 button.yes {
+            background-color: #e74c3c;
+            animation: pulse 1.5s infinite;
+        }
+        #page1 button.yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        #page1 button.no {
+            background-color: #3498db;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        /* Flower Styling */
+        #flower {
+            font-size: 10vw; /* Responsive size */
+            color: #e74c3c;
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: sway 2s infinite ease-in-out;
+        }
+        @keyframes sway {
+            0%, 100% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            50% {
+                transform: translateX(-50%) rotate(10deg);
+            }
+        }
+        /* Page 2: Love Note */
+        #page2 {
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            position: relative;
+            overflow: hidden;
+        }
+        .card {
+            display: flex;
+            width: 90%; /* Adjusted for responsiveness */
+            max-width: 800px;
+            background: linear-gradient(135deg, #ffffff, #f0f8ff); /* Gradient Background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            z-index: 2; /* Ensure card is above emoji rain */
+        }
+        .left-side {
+            flex: 1;
+            background-image: url('https://via.placeholder.com/400x600'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .right-side {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .love-note {
+            font-size: 1.5rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        .bangla-note {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-top: 20px;
+            
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        .note-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .note-item.red {
+            color: black;
+            
+        }
+        .note-item.blue {
+            color: #51FF00;
+            font-size: 1.5rem;
+            
+        }
+        
+        .Spain3{
+          color: #BFFF09;
+        }
+       
+         .span2{
+           color: #000000;
+         }
+       
+       }
+      .span1{
+        color: #58FF09;
+      }
+        .note-item.green {
+            color: #000000;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Heartbeat Animation */
+        .heartbeat {
+            font-size: 5rem;
+            color: #e74c3c;
+            animation: heartbeat 1.5s infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        /* Emoji Rain Animation */
+        .emoji-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3; /* Ensure emojis are in front of the card */
+        }
+        .emoji {
+            position: absolute;
+            font-size: 4rem; /* Big emojis */
+            color: #e74c3c;
+            animation: floatEmoji 5s infinite ease-in-out;
+        }
+        @keyframes floatEmoji {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 1;
+            }
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                flex-direction: column; /* Stack image and text on mobile */
+            }
+            .left-side {
+                flex: none;
+                height: 200px; /* Smaller image for phones */
+                background-size: cover;
+                background-position: center;
+            }
+            .right-side {
+                padding: 10px;
+            }
+            .love-note {
+                font-size: 1.2rem;
+            }
+            .bangla-note {
+                font-size: 100px;
+            }
+            .emoji {
+                font-size: 3rem; /* Slightly smaller emojis for phones */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Proposal -->
+    <div id="page1" class="page active">
+        <div class="container">
+            <h1>Will you be mine forever? ❤️</h1>
+            <button class="yes" onclick="showPage2()">Yes, of course!</button>
+            <button class="no" onmouseover="moveNoButton(event)">No</button>
+            <div id="flower">🌹</div> <!-- Flower Added -->
+        </div>
+    </div>
+    <!-- Page 2: Love Note -->
+    <div id="page2" class="page">
+        <div class="emoji-rain" id="emojiRain"></div>
+        <div class="card">
+            <div class="left-side">
+                <!-- Image moved to the left side -->
+                <img src="couple.jpg" alt="Couple Image" style="width: 100%; height: auto;">
+            </div>
+            <div class="right-side">
+                <p class="love-note">
+                    Meeting you was fate, becoming your friend was a choice, but falling in love with you was beyond my control.
+                </p>
+                <div class="bangla-note">
+                    <p class="note-item red">"তুমি হারিয়ে গিয়েছ, কিন্তু দোয়ার মাঝে এখনো তোমায় খুঁজি, ❣️"</p>
+                    <p class="note-item blue">",
+                    আল্লাহর রহমতে যদি আবার দেখা হয়
+                  </span>
+                    
+                    
+                    <span class="dpan2" >তখন হৃদয় কথা বলবে, ❤️</span> "</p>
+                    <p class="note-item green">"তখন বুঝবে, ভালোবাসা কখনো হারায় না, শুধু সবার রবের ইচ্ছায় লুকিয়ে থাকে! ✨ আরেকটা কথা রমজানের জন্য প্রস্তুতি নেও🥰"</p>
+                </div>
+                <div class="heartbeat">❤️</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Show Page 2 on "Yes" button click
+        function showPage2() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+            startEmojiRain();
+        }
+        // Move "No" Button
+        function moveNoButton(event) {
+            const button = event.target;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const randomX = Math.random() * (viewportWidth - 100); // Subtract button width
+            const randomY = Math.random() * (viewportHeight - 100); // Subtract button height
+            button.style.position = 'absolute';
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+        // Emoji Rain Effect
+        const emojis = ['❤️', '🤍', '💖', '💓', '💕', '💞', '💗', '💝', '😘', '🥰'];
+        const emojiRainContainer = document.getElementById('emojiRain');
+        function createEmojiRain() {
+            for (let i = 0; i < 50; i++) {
+                const emojiElement = document.createElement('div');
+                emojiElement.classList.add('emoji');
+                emojiElement.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                const randomLeft = Math.random() * 100;
+                const randomDelay = Math.random() * 5;
+                const randomDuration = Math.random() * 3 + 2;
+                emojiElement.style.left = `${randomLeft}vw`;
+                emojiElement.style.animationDelay = `${randomDelay}s`;
+                emojiElement.style.animationDuration = `${randomDuration}s`;
+                emojiRainContainer.appendChild(emojiElement);
+            }
+        }
+        function startEmojiRain() {
+            createEmojiRain();
+        }
+    </script>
+</body>
+</html>
